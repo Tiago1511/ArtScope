@@ -9,9 +9,23 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    var departments: DepartmentResponse?
+    var serviceRequest: ServiceRequest = ServiceRequest()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        serviceRequest.getDepartment(
+            completionSuccess: { (departments: DepartmentResponse) in
+                self.departments = departments
+                
+            }, completionFailure: { message in
+                print(message)
+                
+            }, completionTimeout: { message in
+                print(message)
+            }
+        )
     }
 
 
