@@ -9,106 +9,134 @@ import Foundation
 import Alamofire
 import UIKit
 
+// MARK: - ENUM
+nonisolated enum CachePolicy {
+    case useCache
+    case ignoreCache
+}
+
+@MainActor
 final class APIClient {
     
     // MARK: - Singleton
     static let shared = APIClient()
     
-    // MARK: - Base URL
-    private let baseURL = "https://collectionapi.metmuseum.org/"
-    
     // MARK: - Session (URLCache)
     private let session: Session
     
+    // MARK: - JSON decoder
+    private let decoder = JSONDecoder()
+    
+    private let timeout: TimeInterval = 60.0
+    
     private init() {
-        let cacheSizeMemory = 50 * 1024 * 1024 // 50 MB
-        let cacheSizeDisk = 100 * 1024 * 1024 // 100 MB
-        
-        let cache = URLCache(
-            memoryCapacity: cacheSizeMemory,
-            diskCapacity: cacheSizeDisk,
-            diskPath: "url_cache"
-        )
-        
         let configuration = URLSessionConfiguration.default
-        configuration.urlCache = cache
+        configuration.urlCache = URLCache.shared
         configuration.requestCachePolicy = .useProtocolCachePolicy
-        configuration.timeoutIntervalForRequest = 30.0
-        
-        self.session = Session(configuration: configuration)
+        session = Session(configuration: configuration)
     }
     
-    // MARK: - Generic Request
+    //MARK: - Requests
     func request<T: Decodable>(
         endpoint: String,
-        cachePolicy: APICachePolicy = .noCache,
         method: HTTPMethod = .get,
-        headers: HTTPHeaders? = nil,
         parameters: Parameters? = nil,
+        encoding: ParameterEncoding = URLEncoding.default,
+        headers: HTTPHeaders? = nil,
+        cachePolicy: CachePolicy = .ignoreCache,
         completionSuccess: @escaping (T) -> Void,
         completionFailure: @escaping (String) -> Void,
         completionTimeout: @escaping (String) -> Void
     ) {
-        let url = baseURL + endpoint
         
-        guard let url = URL(string: url) else {
-            completionFailure(NSLocalizedString("errorProcessingData", comment:""))
-            return
-        }
-               
-        var urlRequest = URLRequest(url: url)
-        urlRequest.cachePolicy = cachePolicy.urlPolicy
+        let urlRequestString = APIEndpoint.baseURL + endpoint
         
-        if let parameters = parameters {
-            do {
-                let encoding: ParameterEncoding = (method == .get) ? URLEncoding.default : JSONEncoding.default
-                urlRequest = try encoding.encode(urlRequest, with: parameters)
-            } catch {
-                completionFailure(NSLocalizedString("errorProcessingData", comment: ""))
-                return
-            }
-        }
-        
-        session.request(
-            url,
-            method: method,
-            parameters: parameters,
-            encoding: method == .get ? URLEncoding.default : JSONEncoding.default,
-            headers: headers
-        )
-        .validate(statusCode: 200..<300)
-        .validate(contentType: ["application/json"])
-        .responseDecodable(of: T.self) { response in
-            switch response.result {
-            case .success(let data):
-                completionSuccess(data)
-                
-            case .failure(let error):
-                if let urlError = error.asAFError?.underlyingError as? URLError, urlError.code == .timedOut {
-                    completionTimeout(NSLocalizedString("timeOut", comment: ""))
-                } else {
-                    completionFailure(error.localizedDescription)
-                }
-            }
-        }
-    }
-    
-    // MARK: - Get Imagens
-    func fetchImage(
-        urlString: String,
-        completionSuccess: @escaping (UIImage) -> Void,
-        completionFailure: @escaping (String) -> Void,
-        completionTimeout: @escaping () -> Void
-    ) {
-        guard let url = URL(string: urlString) else {
+        guard let url = URL(string: urlRequestString) else {
             completionFailure(NSLocalizedString("invalidUrl", comment:""))
             return
         }
         
-        var request = URLRequest(url: url)
-        request.cachePolicy = .reloadIgnoringLocalCacheData
-
-        session.request(request)
+        var urlRequest = try! URLRequest(url: url, method: method)
+        urlRequest.headers = headers ?? HTTPHeaders()
+        urlRequest.timeoutInterval = timeout
+        
+        if let parameters {
+            urlRequest = try! encoding.encode(urlRequest, with: parameters)
+        }
+        
+        // Definir política de cache de acordo com parâmetro
+        switch cachePolicy {
+        case .useCache:
+            urlRequest.cachePolicy = .returnCacheDataElseLoad
+        case .ignoreCache:
+            urlRequest.cachePolicy = .reloadIgnoringLocalCacheData
+        }
+        
+        // validade have cache for gets
+        if cachePolicy == .useCache && method == .get,
+           // have data for this request
+           let cached = URLCache.shared.cachedResponse(for: urlRequest) {
+            do {
+                let decoded = try decoder.decode(T.self, from: cached.data)
+                completionSuccess(decoded)
+                return
+            } catch {
+                // invalid cache, call service
+                URLCache.shared.removeCachedResponse(for: urlRequest)
+            }
+        }
+        
+        // Request
+        session.request(urlRequest)
+            .validate(statusCode: 200..<300)
+            .validate(contentType: ["application/json"])
+            .responseData { response in
+                
+                switch response.result {
+                case .success(let data):
+                    
+                    // save in cache
+                    if cachePolicy == .useCache, method == .get,
+                       let httpResponse = response.response {
+                        let cachedResponse = CachedURLResponse(response: httpResponse, data: data)
+                        URLCache.shared.storeCachedResponse(cachedResponse, for: urlRequest)
+                    }
+                    
+                    do {
+                        let decoded = try self.decoder.decode(T.self, from: data)
+                        completionSuccess(decoded)
+                    } catch {
+                        completionFailure(NSLocalizedString("errorProcessingData", comment: ""))
+                    }
+                    
+                case .failure(let error):
+                    if let urlError = error.asAFError?.underlyingError as? URLError, urlError.code == .timedOut {
+                        completionTimeout(NSLocalizedString("timeOut", comment: ""))
+                    } else {
+                        completionFailure(error.localizedDescription)
+                    }
+                }
+            }
+    }
+    
+    // MARK: - Get Imagens
+    func fetchImage(
+        endpoint: String,
+        headers: HTTPHeaders? = nil,
+        completionSuccess: @escaping (UIImage) -> Void,
+        completionFailure: @escaping (String) -> Void,
+        completionTimeout: @escaping (String) -> Void
+    ) {
+        guard let url = URL(string: endpoint) else {
+            completionFailure(NSLocalizedString("invalidUrl", comment:""))
+            return
+        }
+        
+        var urlRequest = try! URLRequest(url: url, method: HTTPMethod.get)
+        urlRequest.headers = headers ?? HTTPHeaders()
+        urlRequest.timeoutInterval = timeout
+        
+        session.request(url)
             .validate(statusCode: 200..<300)
             .validate(contentType: ["image/jpeg", "image/png"])
             .responseData { response in
@@ -124,7 +152,7 @@ final class APIClient {
                     
                 case .failure(let error):
                     if let urlError = error.asAFError?.underlyingError as? URLError, urlError.code == .timedOut {
-                        completionTimeout()
+                        completionTimeout(NSLocalizedString("timeOut", comment: ""))
                     } else {
                         completionFailure(error.localizedDescription)
                     }
@@ -132,4 +160,28 @@ final class APIClient {
             }
     }
 }
+
+//MARK: - Cache
+extension APIClient {
+
+    // clear all cache
+    func clearAllCache() {
+        URLCache.shared.removeAllCachedResponses()
+    }
+
+    // clear endpoint cache
+    func clearCache(for endpoint: String, method: HTTPMethod = .get) {
+        let urlRequestString = APIEndpoint.baseURL + endpoint
+
+        guard let url = URL(string: urlRequestString) else {
+            return
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = method.rawValue
+
+        URLCache.shared.removeCachedResponse(for: request)
+    }
+}
+
 

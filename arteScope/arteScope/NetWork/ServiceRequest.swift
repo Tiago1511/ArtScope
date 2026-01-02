@@ -13,10 +13,17 @@ class ServiceRequest {
     // MARK: - Singleton
     static let shared = ServiceRequest()
     
+    private var header: HTTPHeaders
+    
     private var apiClient: APIClient = .shared
+    
+    init() {
+        self.header = HTTPHeaders()
+    }
     
     
     // MARK: - Getters
+    
     func getDepartment(
         completionSuccess:@escaping (DepartmentResponse) -> Void,
         completionFailure:@escaping (String) -> Void,
@@ -24,10 +31,8 @@ class ServiceRequest {
     ){
         apiClient.request(
             endpoint: APIEndpoint.getDepartments,
-            cachePolicy: .useCache,
             method: .get,
-            headers: nil,
-            parameters: nil,
+            parameters: nil, headers: header, cachePolicy: CachePolicy.useCache,
             completionSuccess: { (artwork: DepartmentResponse) in
                 completionSuccess(artwork)
             },
@@ -38,9 +43,14 @@ class ServiceRequest {
                 completionFailure(errorMessage)
             }
         )
-
+        
     }
-    
+}
+
+extension ServiceRequest {
+    func clearCache(){
+        apiClient.clearAllCache()
+    }
     
 }
 
