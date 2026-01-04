@@ -16,6 +16,11 @@ class HomeViewController: GenericViewController<HomeViewModel> {
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationItem.hidesBackButton = true
+    }
+    
     //MARK: - SetUp Bind
     func setUpBind() {
         viewModel.reloadDepartment = { () in
