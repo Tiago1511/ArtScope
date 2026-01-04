@@ -7,27 +7,21 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+/*class ViewController: GenericViewController<GenericViewModel> {
 
     var departments: DepartmentResponse?
     var serviceRequest: ServiceRequest = ServiceRequest()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        showsNavigationBar = true
+        navBarTitle = "Home"
         
-        serviceRequest.getDepartment(
-            completionSuccess: { (departments: DepartmentResponse) in
-                self.departments = departments
-                
-            }, completionFailure: { message in
-                print(message)
-                
-            }, completionTimeout: { message in
-                print(message)
-            }
-        )
     }
 
-
-}
+    @IBAction func action(_ sender: UIButton) {
+        showLoadingView()
+    }
+    
+}*/
 
