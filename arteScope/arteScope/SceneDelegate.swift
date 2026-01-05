@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let rootVC = storyboard.instantiateViewController(withIdentifier: "ViewController") //First viewController
+        let rootVC = storyboard.instantiateViewController(withIdentifier: "SplashScreenViewController") //First viewController
         let nav = UINavigationController(rootViewController: rootVC)
         window.rootViewController = nav
         window.makeKeyAndVisible()
