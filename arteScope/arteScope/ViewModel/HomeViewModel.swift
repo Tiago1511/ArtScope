@@ -25,6 +25,7 @@ class HomeViewModel: GenericViewModel, ViewModelFactory {
             completionSuccess: { [weak self] (departmentResponse: DepartmentResponse) in
                 self?.departments = departmentResponse.departments
                 self?.hideLoading?()
+                self?.showLoading?()
             },
             completionFailure: { [weak self] (error) in
                 self?.hideLoading?()
