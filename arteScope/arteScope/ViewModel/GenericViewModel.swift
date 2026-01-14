@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol ViewModelFactory {
     associatedtype ViewModel: GenericViewModel
@@ -20,6 +21,28 @@ class GenericViewModel {
     
     // MARK: - Service Requests
     let service : ServiceRequest = ServiceRequest.shared
+    
+    func getImage(
+        from url: String,
+        completionSuccess: @escaping (UIImage) -> Void
+    ) {
+        service.getImage(
+            url: url,
+            completionSuccess: { (image: UIImage) in
+                completionSuccess(image)
+                
+            }, completionFailure:{ [weak self](errorMessage: String) in
+                self?.hideLoading?()
+                print(errorMessage)
+                return
+                
+            }, completionTimeout:{ [weak self](errorMessage: String) in
+                self?.hideLoading?()
+                print(errorMessage)
+                return
+            }
+        )
+    }
     
     
 }

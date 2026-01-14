@@ -48,7 +48,7 @@ class SplashScreenViewController: GenericViewController<SplashScreenViewModel> {
     
     private func nextStep() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "HomeViewController")
+        let vc = storyboard.instantiateViewController(withIdentifier: "MenuViewController")
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

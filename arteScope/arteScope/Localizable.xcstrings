@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "" : {
+
+    },
     "arteScope" : {
       "comment" : "App Name",
       "localizations" : {
