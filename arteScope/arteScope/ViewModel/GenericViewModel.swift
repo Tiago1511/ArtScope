@@ -18,30 +18,13 @@ class GenericViewModel {
     // MARK: - Closures
     var showLoading: (() -> Void)?
     var hideLoading: (() -> Void)?
+    var showAlert: ((String) -> Void)?
     
     // MARK: - Service Requests
     let service : ServiceRequest = ServiceRequest.shared
     
-    func getImage(
-        from url: String,
-        completionSuccess: @escaping (UIImage) -> Void
-    ) {
-        service.getImage(
-            url: url,
-            completionSuccess: { (image: UIImage) in
-                completionSuccess(image)
-                
-            }, completionFailure:{ [weak self](errorMessage: String) in
-                self?.hideLoading?()
-                print(errorMessage)
-                return
-                
-            }, completionTimeout:{ [weak self](errorMessage: String) in
-                self?.hideLoading?()
-                print(errorMessage)
-                return
-            }
-        )
+    func getImage(from url: String) async throws -> UIImage {
+        return try await service.getImage(url: url)
     }
     
     

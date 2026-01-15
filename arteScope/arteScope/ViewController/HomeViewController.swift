@@ -10,6 +10,7 @@ import UIKit
 class HomeViewController: GenericViewController<HomeViewModel> {
     
     @IBOutlet weak var highlightCollectionView: UICollectionView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         showsNavigationBar = true
@@ -23,7 +24,21 @@ class HomeViewController: GenericViewController<HomeViewModel> {
         highlightCollectionView.register(UINib(nibName: "HighlightCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "HighlightCollectionViewCell")
         highlightCollectionView.register(UINib(nibName: "ThemeCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "ThemeCollectionViewCell")
         highlightCollectionView.register(UINib(nibName: "HomeHeaderView", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "HomeHeaderView")
-        viewModel.getHighlights()
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        
+        highlightCollectionView.collectionViewLayout = layout
+        
+        highlightCollectionView.contentInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
+        
+        highlightCollectionView.backgroundColor = .secoundBackground
+        
+        Task {
+            await viewModel.loadHome()
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -32,12 +47,30 @@ class HomeViewController: GenericViewController<HomeViewModel> {
     }
     
     //MARK: - SetUp Bind
-    func setUpBind() {
+    override func setupBind() {
+        super.setupBind()
+        
         viewModel.reloadDepartment = { [weak self] () in
             DispatchQueue.main.async {
                 self?.highlightCollectionView.reloadData()
             }
         }
+        
+        viewModel.reloadService = { [weak self] (title: String, message: String) in
+            self?.showGenericAlert(
+                title: title,
+                message: message,
+                onOk: { [weak self] () in
+                    Task{
+                        await self?.viewModel.loadHome()
+                    }
+                },
+                onCancel: {
+                    return
+                }
+            )
+        }
+        
     }
 
 }
@@ -54,6 +87,10 @@ extension HomeViewController:UICollectionViewDelegate, UICollectionViewDataSourc
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         CGSize(width: collectionView.frame.width, height: 40)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        CGSize(width: view.frame.width / 3.5, height: view.frame.width / 3)
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

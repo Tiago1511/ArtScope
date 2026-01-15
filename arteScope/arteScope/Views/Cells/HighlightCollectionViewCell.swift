@@ -12,6 +12,7 @@ class HighlightCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     
+    private var task: Task<Void, Never>?
     var viewModel = HighlightViewModel()
     
     func setUp(with highlight: Object) {
@@ -21,11 +22,15 @@ class HighlightCollectionViewCell: UICollectionViewCell {
     }
     
     func getImage(){
-        viewModel.getImage(
-            from: viewModel.highlight?.imageURL ?? "",
-            completionSuccess: { [weak self](image: UIImage) in
-                self?.imageView.image = image
-        })
+        task = Task{
+            do {
+                let image = try await viewModel.getImage(from: viewModel.highlight?.imageURL ?? "")
+                imageView.image = image
+            } catch {
+                imageView.image = UIImage(systemName: "xmark.circle")
+                imageView.tintColor = .background
+            }
+        }
     }
     
 }

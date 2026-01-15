@@ -22,63 +22,92 @@ class HomeViewModel: GenericViewModel, ViewModelFactory {
     
     // MARK: - Closures
     var reloadDepartment: (() -> Void)?
+    var reloadService: ((_ title: String, _ message: String) -> Void)?
 
     //MARK: - Services
-    
-    func getHighlights(){
-        showLoading?()
-        service.getHighlights(
-            completionSuccess:{ [weak self] (response: Objects) in
-                self?.highlights = response
-                self?.fetchHighlightObjects(from: response.objectsIds)
-            },
-            completionFailure:{ [weak self] (error) in
-                self?.hideLoading?()
-            },
-            completionTimeout:{ [weak self] (error) in
-                self?.hideLoading?()
+    func loadHome() async{
+        Task {
+            do {
+                showLoading?()
+                try await getHighlights()
+                buildHomeSections()
+                hideLoading?()
+                reloadDepartment?()
+                
+            } catch {
+        
+                buildHomeSections()
+                hideLoading?()
+                reloadDepartment?()
+                
+                switch error as? NetworkError {
+                case .invalidURL, .decoding:
+                    reloadService?(NSLocalizedString("error", comment: ""), NSLocalizedString("errorProcessingData", comment: ""))
+                    break
+                    
+                case .timeout:
+                    reloadService?(NSLocalizedString("error", comment: ""), NSLocalizedString("errorProcessingData", comment: "" ))
+                    break
+                    
+                case .noInternet:
+                    reloadService?(NSLocalizedString("noInternet", comment: ""), NSLocalizedString("checkConnection", comment: ""))
+                    break
+                    
+                case .server(let message):
+                    reloadService?(NSLocalizedString("error", comment: ""), message)
+                    break
+                    
+                default:
+                    showAlert?(NSLocalizedString("serviceError", comment: ""))
+                    break
+                }
+                                
             }
-            
-        )
+        }
+    }
+
+    
+    private func getHighlights() async throws {
+        
+        let ojects = try await service.getHighlights()
+        highlights = ojects
+        
+        guard let highlight = highlights?.objectsIds else { return }
+        
+        // get 10 elements
+        await fetchHighlightObjects(ids: highlight.prefix(10))
+        
+        
     }
     
-    private func fetchHighlightObjects(from ids: [Int]) {
-
-        guard !ids.isEmpty else {
-            hideLoading?()
-            return
-        }
-
+    private func fetchHighlightObjects(ids: ArraySlice<Int>) async {
+        
         highlightObjects = []
-
-        let group = DispatchGroup()
-
-        for id in ids.prefix(10) { // limita se quiseres
-            group.enter()
-
-            service.getObject(id: id,
-                completionSuccess: { [weak self] (object: Object) in
-                   // if object.isHighlight {
-                        self?.highlightObjects.append(object)
-                   // }
-                    group.leave()
-                },
-                completionFailure: { _ in group.leave() },
-                completionTimeout: { _ in group.leave() }
-            )
-        }
-
-        group.notify(queue: .main) { [weak self] in
-            self?.hideLoading?()
-            self?.buildHomeSections()
+        
+        await withTaskGroup(of: Object?.self) { group in
+            
+            for id in ids {
+                group.addTask {
+                    try? await self.service.getObject(id: id)
+                }
+            }
+            
+            for await object in group {
+                if let object{
+                    highlightObjects.append(object)
+                }
+            }
         }
     }
 
     
     private func buildHomeSections(){
+        
+        homeSections = []
+        
         if !highlightObjects.isEmpty {
             let section = HomeSection(
-                headerTitle: NSLocalizedString("", comment: ""),
+                headerTitle: NSLocalizedString("highlight", comment: ""),
                 items: highlightObjects.map() { highlightObject in
                     .highlight(highlightObject)
                 })
@@ -86,10 +115,9 @@ class HomeViewModel: GenericViewModel, ViewModelFactory {
         }
         
         homeSections.append(
-            HomeSection(headerTitle: NSLocalizedString("", comment: ""), items: themes.map() {
+            HomeSection(headerTitle: NSLocalizedString("theme", comment: ""), items: themes.map() {
                .themes($0)
            } )
         )
-        reloadDepartment?()
     }
 }
