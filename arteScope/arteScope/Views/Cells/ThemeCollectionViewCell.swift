@@ -12,13 +12,22 @@ class ThemeCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     
-    var theme: Theme?
-    
     var viewModel = ThemeViewModel()
     
-    func setUp(with theme: Theme) {
-        self.theme = theme
-        titleLabel.text = theme.title
-        imageView.image = UIImage(named: theme.image)
+    static let identifier: String = "ThemeCollectionViewCell"
+    static func nib() -> UINib {
+        UINib(nibName: "ThemeCollectionViewCell", bundle: nil)
+    }
+    
+    func setUp(with theme: ThemeViewModel) {
+        viewModel = theme
+        titleLabel.text = viewModel.theme?.title ?? ""
+        
+        if let image = viewModel.theme?.image {
+            imageView.image = UIImage(named: image)
+        } else {
+            imageView.image = UIImage(systemName: "xmark.circle")
+        }
+        
     }
 }

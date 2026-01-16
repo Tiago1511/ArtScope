@@ -21,9 +21,10 @@ class HomeViewController: GenericViewController<HomeViewModel> {
     private func setupCollectionView(){
         highlightCollectionView.delegate = self
         highlightCollectionView.dataSource = self
-        highlightCollectionView.register(UINib(nibName: "HighlightCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "HighlightCollectionViewCell")
-        highlightCollectionView.register(UINib(nibName: "ThemeCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "ThemeCollectionViewCell")
-        highlightCollectionView.register(UINib(nibName: "HomeHeaderView", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "HomeHeaderView")
+        
+        highlightCollectionView.register(HighlightCollectionViewCell.nib(), forCellWithReuseIdentifier: HighlightCollectionViewCell.identifier)
+        highlightCollectionView.register(ThemeCollectionViewCell.nib(), forCellWithReuseIdentifier: ThemeCollectionViewCell.identifier)
+        highlightCollectionView.register(HomeHeaderView.nib(), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeHeaderView.Identifier)
         
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -113,12 +114,21 @@ extension HomeViewController:UICollectionViewDelegate, UICollectionViewDataSourc
         
         switch item {
         case .highlight(let highlight):
-            let cell: HighlightCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "HighlightCollectionViewCell", for: indexPath) as! HighlightCollectionViewCell
-            cell.setUp(with: highlight)
+            let cell: HighlightCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: HighlightCollectionViewCell.identifier, for: indexPath) as! HighlightCollectionViewCell
+            
+            let highlightViewModel = HighlightViewModel()
+            highlightViewModel.highlight = highlight
+            
+            cell.setUp(with: highlightViewModel)
             return cell
+            
         case .themes(let theme):
-            let cell: ThemeCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ThemeCollectionViewCell", for: indexPath) as! ThemeCollectionViewCell
-            cell.setUp(with: theme)
+            let cell: ThemeCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: ThemeCollectionViewCell.identifier, for: indexPath) as! ThemeCollectionViewCell
+            
+            let themeViewModel = ThemeViewModel()
+            themeViewModel.theme = theme
+            
+            cell.setUp(with: themeViewModel)
             return cell
         }
     }
