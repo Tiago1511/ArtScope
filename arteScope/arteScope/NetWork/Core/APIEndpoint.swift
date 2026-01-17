@@ -14,4 +14,12 @@ enum  APIEndpoint {
     
     // MARK: - Department
     static let getDepartments: String = "public/collection/v1/departments"
+    
+    // MARK: - Search
+    static let search = "public/collection/v1/search"
+    
+    // MARK: - Object
+    static func objectDetails(id: Int) -> String {
+        return "public/collection/v1/objects/\(id)"
+    }
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol ViewModelFactory {
     associatedtype ViewModel: GenericViewModel
@@ -17,9 +18,14 @@ class GenericViewModel {
     // MARK: - Closures
     var showLoading: (() -> Void)?
     var hideLoading: (() -> Void)?
+    var showAlert: ((String) -> Void)?
     
     // MARK: - Service Requests
     let service : ServiceRequest = ServiceRequest.shared
+    
+    func getImage(from url: String) async throws -> UIImage {
+        return try await service.getImage(url: url)
+    }
     
     
 }

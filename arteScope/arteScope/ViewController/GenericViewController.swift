@@ -50,12 +50,21 @@ where VM: GenericViewModel & ViewModelFactory,
     
     //MARK: - SetUp Bind
     func setupBind() {
-        viewModel.showLoading = { [weak self] in // uso o [weak self] pois como estou a usar um clousere que é executada depois de um tempo, pois não tenho a garantia que a instancia ainda vai estar ativa
+        viewModel.showLoading = { [weak self] in // uso o [weak self] pois como estou a usar um clousere que é executada depois de um tempo, e não tenho a garantia que a instancia ainda vai estar ativa
             self?.showLoadingView()
         }
         
         viewModel.hideLoading = { [weak self] in
             self?.hideLoadingView()
+        }
+        
+        viewModel.showAlert = {  [weak self] (message: String) in
+            self?.showGenericAlert(
+                message: message,
+                onOk: {
+                    return
+                }
+            )
         }
     }
     

@@ -7,8 +7,9 @@
 
 import Foundation
 import Alamofire
+import UIKit
 
-class ServiceRequest {
+final class ServiceRequest {
     
     // MARK: - Singleton
     static let shared = ServiceRequest()
@@ -24,27 +25,53 @@ class ServiceRequest {
     
     // MARK: - Getters
     
-    func getDepartment(
-        completionSuccess:@escaping (DepartmentResponse) -> Void,
-        completionFailure:@escaping (String) -> Void,
-        completionTimeout:@escaping (String) -> Void
-    ){
-        apiClient.request(
+    /// Departement
+    func getDepartment() async throws -> DepartmentResponse {
+        try await apiClient.request(
             endpoint: APIEndpoint.getDepartments,
             method: .get,
-            parameters: nil, headers: header, cachePolicy: CachePolicy.useCache,
-            completionSuccess: { (artwork: DepartmentResponse) in
-                completionSuccess(artwork)
-            },
-            completionFailure: { errorMessage in
-                completionFailure(errorMessage)
-            },
-            completionTimeout: { errorMessage in
-                completionFailure(errorMessage)
-            }
+            parameters: nil,
+            headers: header,
+            cachePolicy: CachePolicy.useCache,
         )
         
     }
+    
+    /// Highlights
+    func getHighlights() async throws -> Objects {
+        try await apiClient.request(
+            endpoint: APIEndpoint.search,
+            method: .get,
+            parameters: [
+                "hasImages" : true,
+                "isHighlight" : true,
+                "q" : "*"
+            ],
+            headers: header,
+            cachePolicy: CachePolicy.useCache
+        )
+    }
+    
+    /// Object
+    func getObject( id: Int) async throws -> Object{
+        try await apiClient.request(
+            endpoint: APIEndpoint.objectDetails(id: id),
+            method: .get,
+            parameters: nil,
+            headers: header,
+            cachePolicy: CachePolicy.ignoreCache,
+        )
+    }
+    
+    /// Image
+    func getImage(url: String) async throws -> UIImage {
+        try await apiClient.fetchImage(
+            endpoint: url,
+            headers: header,
+            cachePolicy: CachePolicy.ignoreCache
+            )
+    }
+        
 }
 
 extension ServiceRequest {
