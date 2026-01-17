@@ -24,11 +24,10 @@ class ThemeTableViewCell: UITableViewCell {
         setUp()
     }
     
+    //MARK: - SetUp
     func setUp() {
         self.backgroundColor = .secoundBackground
         self.selectionStyle = .none
-        self.layer.cornerRadius = 10
-        self.layer.masksToBounds = true
         imgView.layer.cornerRadius = 10
         
     }

@@ -8,8 +8,7 @@
 import UIKit
 
 let tableViewHeaderHeight: CGFloat = 40
-let tableViewCellHeight: CGFloat = 400
-let tableViewThemeCellHeight: CGFloat = 100
+let tableViewCellHeight: CGFloat = 100
 
 class HomeViewController: GenericViewController<HomeViewModel> {
     
@@ -103,10 +102,7 @@ extension HomeViewController:UITableViewDelegate, UITableViewDataSource{
     
     // data
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if(indexPath.section == 0){
-            return tableViewCellHeight
-        }
-        return tableViewThemeCellHeight
+         tableViewCellHeight
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -132,60 +128,4 @@ extension HomeViewController:UITableViewDelegate, UITableViewDataSource{
             return cell
         }
     }
-    
-    
-    /*func numberOfSections(in collectionView: UICollectionView) -> Int {
-        viewModel.homeSections.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        viewModel.homeSections[section].items.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        CGSize(width: collectionView.frame.width, height: 40)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: view.frame.width / 3.5, height: view.frame.width / 3)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        
-        guard kind == UICollectionView.elementKindSectionHeader else {
-            return UICollectionReusableView()
-        }
-        
-        let headerView: HomeHeaderView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "HomeHeaderView", for: indexPath) as! HomeHeaderView
-        
-        headerView.titleLabel.text = viewModel.homeSections[indexPath.section].headerTitle
-        
-        return headerView
-    }
-
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let item = viewModel.homeSections[indexPath.section].items[indexPath.row]
-        
-        switch item {
-        case .highlight(let highlight):
-            let cell: HighlightCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: HighlightCollectionViewCell.identifier, for: indexPath) as! HighlightCollectionViewCell
-            
-            let highlightViewModel = HighlightViewModel()
-            highlightViewModel.highlight = highlight
-            
-            cell.setUp(with: highlightViewModel)
-            return cell
-            
-        case .themes(let theme):
-            let cell: ThemeCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: ThemeCollectionViewCell.identifier, for: indexPath) as! ThemeCollectionViewCell
-            
-            let themeViewModel = ThemeViewModel()
-            themeViewModel.theme = theme
-            
-            cell.setUp(with: themeViewModel)
-            return cell
-        }
-    }*/
 }

@@ -13,8 +13,8 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="40"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bRg-ah-qFT">
-                    <rect key="frame" x="10" y="0.0" width="373" height="40"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bRg-ah-qFT">
+                    <rect key="frame" x="20" y="0.0" width="363" height="40"/>
                     <fontDescription key="fontDescription" type="system" pointSize="25"/>
                     <color key="textColor" name="title"/>
                     <nil key="highlightedColor"/>
@@ -24,7 +24,7 @@
             <constraints>
                 <constraint firstItem="bRg-ah-qFT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="HMb-Yf-Syz"/>
                 <constraint firstAttribute="trailing" secondItem="bRg-ah-qFT" secondAttribute="trailing" constant="10" id="LFp-cP-5fe"/>
-                <constraint firstItem="bRg-ah-qFT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="N0O-KY-nCv"/>
+                <constraint firstItem="bRg-ah-qFT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="N0O-KY-nCv"/>
                 <constraint firstAttribute="bottom" secondItem="bRg-ah-qFT" secondAttribute="bottom" id="cBo-VG-yJh"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

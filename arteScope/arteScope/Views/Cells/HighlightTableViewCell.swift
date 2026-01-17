@@ -11,6 +11,7 @@ class HighlightTableViewCell: UITableViewCell {
     
     @IBOutlet weak var imgView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var artistNameLabel: UILabel!
     
     var viewModel = HighlightViewModel()
 
@@ -24,14 +25,17 @@ class HighlightTableViewCell: UITableViewCell {
         setUp()
     }
     
+    //MARK: - SetUp
     func setUp() {
         self.backgroundColor = .secoundBackground
+        self.selectionStyle = .none
         imgView.layer.cornerRadius = 10
     }
     
     func config(with highlight: HighlightViewModel) {
         viewModel = highlight
         titleLabel.text = viewModel.highlight?.title ?? ""
+        artistNameLabel.text = viewModel.highlight?.artistName ?? ""
         getImage()
     }
     
