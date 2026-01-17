@@ -43,6 +43,7 @@ final class ServiceRequest {
             endpoint: APIEndpoint.search,
             method: .get,
             parameters: [
+                "hasImages" : true,
                 "isHighlight" : true,
                 "q" : "*"
             ],

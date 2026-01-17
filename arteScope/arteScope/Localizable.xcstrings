@@ -1,6 +1,23 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "animals" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Animals"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Animais"
+          }
+        }
+      }
+    },
     "arteScope" : {
       "comment" : "App Name",
       "localizations" : {
@@ -104,6 +121,23 @@
         }
       }
     },
+    "flowers" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Flowers"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Flores"
+          }
+        }
+      }
+    },
     "highlight" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -134,6 +168,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "URL invalido"
+          }
+        }
+      }
+    },
+    "landscapes" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Landscapes"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paisagens"
+          }
+        }
+      }
+    },
+    "nature" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nature"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Natureza"
           }
         }
       }
@@ -169,6 +237,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "OK"
+          }
+        }
+      }
+    },
+    "portraits" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portraits"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retratos"
+          }
+        }
+      }
+    },
+    "sea" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sea"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mar"
           }
         }
       }

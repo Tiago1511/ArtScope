@@ -32,7 +32,7 @@ class HomeViewController: GenericViewController<HomeViewModel> {
         
         highlightCollectionView.collectionViewLayout = layout
         
-        highlightCollectionView.contentInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
+        highlightCollectionView.contentInset = UIEdgeInsets(top: 0, left: 5, bottom: 5, right: 5)
         
         highlightCollectionView.backgroundColor = .secoundBackground
         

@@ -13,10 +13,10 @@ struct Theme {
 }
 
 var themes: [Theme] = [
-    Theme(title: "Nature", image: "landscape"),
-    Theme(title: "City", image: "portrait"),
-    Theme(title: "Space", image: "nature"),
-    Theme(title: "Underwater", image: "flowers"),
-    Theme(title: "Fantasy", image: "sea"),
-    Theme(title: "Vintage", image: "animals")
+    Theme(title: NSLocalizedString("landscapes", comment: ""), image: "landscape"),
+    Theme(title: NSLocalizedString("portraits", comment: ""), image: "portrait"),
+    Theme(title: NSLocalizedString("nature", comment: ""), image: "nature"),
+    Theme(title: NSLocalizedString("flowers", comment: ""), image: "flowers"),
+    Theme(title: NSLocalizedString("sea", comment: ""), image: "sea"),
+    Theme(title: NSLocalizedString("animals", comment: ""), image: "animals")
 ]
