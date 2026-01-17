@@ -7,9 +7,13 @@
 
 import UIKit
 
+let tableViewHeaderHeight: CGFloat = 40
+let tableViewCellHeight: CGFloat = 400
+let tableViewThemeCellHeight: CGFloat = 100
+
 class HomeViewController: GenericViewController<HomeViewModel> {
     
-    @IBOutlet weak var highlightCollectionView: UICollectionView!
+    @IBOutlet weak var highlightTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,22 +23,18 @@ class HomeViewController: GenericViewController<HomeViewModel> {
     }
     
     private func setupCollectionView(){
-        highlightCollectionView.delegate = self
-        highlightCollectionView.dataSource = self
+        highlightTableView.delegate = self
+        highlightTableView.dataSource = self
         
-        highlightCollectionView.register(HighlightCollectionViewCell.nib(), forCellWithReuseIdentifier: HighlightCollectionViewCell.identifier)
-        highlightCollectionView.register(ThemeCollectionViewCell.nib(), forCellWithReuseIdentifier: ThemeCollectionViewCell.identifier)
-        highlightCollectionView.register(HomeHeaderView.nib(), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeHeaderView.Identifier)
+        highlightTableView.backgroundColor = .background
         
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        
-        highlightCollectionView.collectionViewLayout = layout
-        
-        highlightCollectionView.contentInset = UIEdgeInsets(top: 0, left: 5, bottom: 5, right: 5)
-        
-        highlightCollectionView.backgroundColor = .secoundBackground
+        highlightTableView.register(HighlightTableViewCell.nib(), forCellReuseIdentifier: HighlightTableViewCell.identifier)
+        highlightTableView.register(ThemeTableViewCell.nib(), forCellReuseIdentifier: ThemeTableViewCell.identifier)
+        highlightTableView.register(HomeHeaderView.nib(), forHeaderFooterViewReuseIdentifier: HomeHeaderView.identifier)
+                
+        highlightTableView.separatorStyle = .none
+        highlightTableView.layer.cornerRadius = 10
+        highlightTableView.layer.masksToBounds = true
         
         Task {
             await viewModel.loadHome()
@@ -53,7 +53,7 @@ class HomeViewController: GenericViewController<HomeViewModel> {
         
         viewModel.reloadDepartment = { [weak self] () in
             DispatchQueue.main.async {
-                self?.highlightCollectionView.reloadData()
+                self?.highlightTableView.reloadData()
             }
         }
         
@@ -76,9 +76,65 @@ class HomeViewController: GenericViewController<HomeViewModel> {
 
 }
 
-extension HomeViewController:UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension HomeViewController:UITableViewDelegate, UITableViewDataSource{
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        viewModel.homeSections.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        viewModel.homeSections[section].items.count
+        
+    }
+    
+    // header
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        tableViewHeaderHeight
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView: HomeHeaderView = tableView.dequeueReusableHeaderFooterView(withIdentifier: HomeHeaderView.identifier) as! HomeHeaderView
+        
+        headerView.titleLabel.text = viewModel.homeSections[section].headerTitle
+        
+        return headerView
+    }
+    
+    
+    // data
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if(indexPath.section == 0){
+            return tableViewCellHeight
+        }
+        return tableViewThemeCellHeight
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let item = viewModel.homeSections[indexPath.section].items[indexPath.row]
+        
+        switch item {
+        case .highlight(let highlight):
+            let cell: HighlightTableViewCell = tableView.dequeueReusableCell(withIdentifier: HighlightTableViewCell.identifier, for: indexPath) as! HighlightTableViewCell
+            
+            let highlightViewModel = HighlightViewModel()
+            highlightViewModel.highlight = highlight
+            
+            cell.config(with: highlightViewModel)
+            return cell
+            
+        case .themes(let theme):
+            let cell: ThemeTableViewCell = tableView.dequeueReusableCell(withIdentifier: ThemeTableViewCell.identifier, for: indexPath) as! ThemeTableViewCell
+            
+            let themeViewModel = ThemeViewModel()
+            themeViewModel.theme = theme
+            
+            cell.config(with: themeViewModel)
+            return cell
+        }
+    }
+    
+    
+    /*func numberOfSections(in collectionView: UICollectionView) -> Int {
         viewModel.homeSections.count
     }
     
@@ -131,5 +187,5 @@ extension HomeViewController:UICollectionViewDelegate, UICollectionViewDataSourc
             cell.setUp(with: themeViewModel)
             return cell
         }
-    }
+    }*/
 }

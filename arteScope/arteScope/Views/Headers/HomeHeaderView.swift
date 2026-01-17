@@ -2,23 +2,18 @@
 //  HomeHeaderView.swift
 //  arteScope
 //
-//  Created by tiago on 13/01/2026.
+//  Created by tiago on 17/01/2026.
 //
 
 import UIKit
 
-class HomeHeaderView: UICollectionReusableView {
-
+class HomeHeaderView: UITableViewHeaderFooterView {
+    
     @IBOutlet weak var titleLabel: UILabel!
     
-    static var Identifier: String = "HomeHeaderView"
+    static var identifier: String = "HomeHeaderView"
     
     static func nib() -> UINib {
         UINib(nibName: "HomeHeaderView", bundle: nil)
     }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
 }
