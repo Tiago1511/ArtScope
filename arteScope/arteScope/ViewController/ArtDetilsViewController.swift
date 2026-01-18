@@ -12,7 +12,9 @@ class ArtDetilsViewController: GenericViewController<ArtDetilsViewModel> {
     @IBOutlet weak var artUIImage: UIImageView!
     @IBOutlet weak var artNameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var artDescriptionLabel: UILabel!
+    @IBOutlet weak var dimensionsLabel: UILabel!
+    @IBOutlet weak var artistNameLabel: UILabel!
+    @IBOutlet weak var artistBioLabel: UILabel!
     
     static var storyboardID: String = "ArtDetilsViewController"
     
@@ -31,7 +33,9 @@ class ArtDetilsViewController: GenericViewController<ArtDetilsViewModel> {
     func setUp() {
         artNameLabel.text = viewModel.art?.title
         dateLabel.text = viewModel.art?.artistBeginYear
-        artDescriptionLabel.text = viewModel.art?.artistBio
+        dimensionsLabel.text = viewModel.art?.dimensions
+        artistNameLabel.text = viewModel.art?.artistName
+        artistBioLabel.text = viewModel.art?.artistBio
     }
 
     @IBAction func favoriteButtonAction(_ sender: UIButton) {
