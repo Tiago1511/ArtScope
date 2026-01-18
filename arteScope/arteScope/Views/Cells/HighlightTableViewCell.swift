@@ -12,6 +12,7 @@ class HighlightTableViewCell: UITableViewCell {
     @IBOutlet weak var imgView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var artistNameLabel: UILabel!
+    @IBOutlet weak var imageMainView: UIView!
     
     var viewModel = HighlightViewModel()
 
@@ -30,6 +31,8 @@ class HighlightTableViewCell: UITableViewCell {
         self.backgroundColor = .secoundBackground
         self.selectionStyle = .none
         imgView.layer.cornerRadius = 10
+        titleLabel.setTheme(titleLabelStyle)
+        artistNameLabel.setTheme(descriptionLabelStyle)
     }
     
     func config(with highlight: HighlightViewModel) {
@@ -45,8 +48,7 @@ class HighlightTableViewCell: UITableViewCell {
                 let image = try await viewModel.getImage(from: viewModel.highlight?.imageURL ?? "")
                 imgView.image = image
             } catch {
-                imgView.image = UIImage(systemName: "xmark.circle")
-                imgView.tintColor = .background
+                imageMainView.isHidden = true
             }
         }
     }

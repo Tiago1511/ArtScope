@@ -32,7 +32,7 @@ final class ServiceRequest {
             method: .get,
             parameters: nil,
             headers: header,
-            cachePolicy: CachePolicy.useCache,
+            cachePolicy: CachePolicy.ignoreCache,
         )
         
     }
@@ -48,7 +48,7 @@ final class ServiceRequest {
                 "q" : "*"
             ],
             headers: header,
-            cachePolicy: CachePolicy.useCache
+            cachePolicy: CachePolicy.ignoreCache
         )
     }
     
@@ -72,12 +72,5 @@ final class ServiceRequest {
             )
     }
         
-}
-
-extension ServiceRequest {
-    func clearCache(){
-        apiClient.clearAllCache()
-    }
-    
 }
 

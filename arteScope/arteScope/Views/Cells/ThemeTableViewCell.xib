@@ -32,11 +32,10 @@
                                 <constraint firstAttribute="width" constant="80" id="pa3-Fc-CIb"/>
                             </constraints>
                         </view>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z9z-Yi-Kag">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9U2-Wc-o0S">
                             <rect key="frame" x="90" y="0.0" width="253" height="80"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" name="subTitle"/>
+                            <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wjb-WF-1gL">
@@ -71,7 +70,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="imgView" destination="oH3-Rm-b0J" id="o98-c2-Ofy"/>
-                <outlet property="titleLabel" destination="Z9z-Yi-Kag" id="twt-8c-Mh2"/>
+                <outlet property="titleLabel" destination="9U2-Wc-o0S" id="9Xa-4Z-hiA"/>
             </connections>
             <point key="canvasLocation" x="-74.045801526717554" y="153.52112676056339"/>
         </view>
@@ -83,9 +82,6 @@
         </namedColor>
         <namedColor name="iconTabBar">
             <color red="0.6588235294117647" green="0.62352941176470589" blue="0.74117647058823533" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
-        <namedColor name="subTitle">
-            <color red="0.20392156862745098" green="0.16078431372549021" blue="0.24313725490196078" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

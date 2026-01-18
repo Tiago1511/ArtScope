@@ -15,6 +15,7 @@ class ArtDetilsViewController: GenericViewController<ArtDetilsViewModel> {
     @IBOutlet weak var dimensionsLabel: UILabel!
     @IBOutlet weak var artistNameLabel: UILabel!
     @IBOutlet weak var artistBioLabel: UILabel!
+    @IBOutlet weak var artistTitleLabel: UILabel!
     
     static var storyboardID: String = "ArtDetilsViewController"
     
@@ -31,14 +32,34 @@ class ArtDetilsViewController: GenericViewController<ArtDetilsViewModel> {
     }
     
     func setUp() {
-        artNameLabel.text = viewModel.art?.title
-        dateLabel.text = viewModel.art?.artistBeginYear
-        dimensionsLabel.text = viewModel.art?.dimensions
-        artistNameLabel.text = viewModel.art?.artistName
-        artistBioLabel.text = viewModel.art?.artistBio
+        artNameLabel.setTheme(descriptionLabelStyle)
+        artNameLabel.text = appendValueForLabel(title: NSLocalizedString("name", comment: ""), data: viewModel.art?.title ?? "")
+        
+        dateLabel.setTheme(descriptionLabelStyle)
+        dateLabel.text = appendValueForLabel(title: NSLocalizedString("date", comment: ""), data:viewModel.art?.artistBeginYear ?? "")
+        
+        dimensionsLabel.setTheme(descriptionLabelStyle)
+        dimensionsLabel.text = appendValueForLabel(title: NSLocalizedString("artDimensions", comment: ""), data:viewModel.art?.dimensions ?? "")
+        
+        artistTitleLabel.setTheme(subtitleLabelStyle)
+        artistTitleLabel.text = NSLocalizedString("artistDetails", comment: "")
+        
+        artistNameLabel.setTheme(descriptionLabelStyle)
+        artistNameLabel.text = appendValueForLabel(title: NSLocalizedString("name(s)", comment: ""), data:viewModel.art?.artistName ?? "")
+        
+        artistBioLabel.setTheme(descriptionLabelStyle)
+        artistBioLabel.text = appendValueForLabel(title: NSLocalizedString("bibliography", comment: ""), data:viewModel.art?.artistBio ?? "")
     }
 
     @IBAction func favoriteButtonAction(_ sender: UIButton) {
     }
     
+    private func appendValueForLabel(title: String, data: String) -> String{
+        if data.isEmpty {
+            return ""
+        }
+        
+        return "\(title): \(data)"
+        
+    }
 }
