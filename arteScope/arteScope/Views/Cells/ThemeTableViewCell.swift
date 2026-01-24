@@ -29,7 +29,7 @@ class ThemeTableViewCell: UITableViewCell {
         self.backgroundColor = .secoundBackground
         self.selectionStyle = .none
         imgView.layer.cornerRadius = 10
-        
+        titleLabel.setTheme(subtitleLabelStyle)
     }
     
     func config(with theme: ThemeViewModel) {

@@ -83,6 +83,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="artistNameLabel" destination="4G9-oZ-UnW" id="4IS-LA-Tyi"/>
+                <outlet property="imageMainView" destination="aVG-hL-OtY" id="D0X-oT-hq7"/>
                 <outlet property="imgView" destination="iIf-4g-ygL" id="jCm-xg-aVB"/>
                 <outlet property="titleLabel" destination="6J2-gZ-fWf" id="G16-Qs-36c"/>
             </connections>

@@ -7,6 +7,8 @@
 
 import UIKit
 
+let maxNumberOfHighlights: Int = 10
+
 class HomeViewModel: GenericViewModel, ViewModelFactory {
     
     static func make() -> HomeViewModel {

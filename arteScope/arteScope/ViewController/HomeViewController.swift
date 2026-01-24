@@ -128,4 +128,22 @@ extension HomeViewController:UITableViewDelegate, UITableViewDataSource{
             return cell
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        
+        let item = viewModel.homeSections[indexPath.section].items[indexPath.row]
+        
+        switch item {
+        case .highlight(let highlight):
+            let viewController: ArtDetilsViewController = storyboard.instantiateViewController(withIdentifier: ArtDetilsViewController.storyboardID) as! ArtDetilsViewController
+            viewController.viewModel.art = highlight
+            navigationController?.pushViewController(viewController, animated: true)
+            break
+        case .themes(let theme):
+            break
+        }
+        
+    }
 }

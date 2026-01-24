@@ -39,9 +39,22 @@ final class APIClient {
     private let timeout: TimeInterval = 60.0
     
     private init() {
+        let cache = URLCache(
+            memoryCapacity: 50 * 1024 * 1024,   // 50 MB
+            diskCapacity: 100 * 1024 * 1024,    // 100 MB
+            diskPath: "alamofire-cache"
+        )
+        
         let configuration = URLSessionConfiguration.default
-        configuration.urlCache = URLCache.shared
+        configuration.urlCache = cache
         configuration.requestCachePolicy = .useProtocolCachePolicy
+        
+        
+        if UserDefaults.standard.bool(forKey: "shouldClearNetworkCache") {
+            cache.removeAllCachedResponses()
+            UserDefaults.standard.set(false, forKey: "shouldClearNetworkCache")
+        }
+        
         session = Session(configuration: configuration)
     }
     
@@ -60,65 +73,34 @@ final class APIClient {
         guard let url = URL(string: urlRequestString) else {
             throw NetworkError.invalidURL
         }
-        
-        var urlRequest = try! URLRequest(url: url, method: method)
+
+        var urlRequest = try URLRequest(url: url, method: method)
         urlRequest.headers = headers ?? HTTPHeaders()
         urlRequest.timeoutInterval = timeout
-        
+
+        urlRequest.cachePolicy = cachePolicy == .useCache
+            ? .returnCacheDataElseLoad
+            : .reloadIgnoringLocalCacheData
+
         if let parameters {
             urlRequest = try encoding.encode(urlRequest, with: parameters)
         }
-        
-        // Definir política de cache de acordo com parâmetro
-        switch cachePolicy {
-        case .useCache:
-            urlRequest.cachePolicy = .returnCacheDataElseLoad
-        case .ignoreCache:
-            urlRequest.cachePolicy = .reloadIgnoringLocalCacheData
-        }
-        
-        // validade have cache for gets
-        if cachePolicy == .useCache && method == .get,
-           // have data for this request
-           let cached = URLCache.shared.cachedResponse(for: urlRequest) {
-            do {
-                return try decoder.decode(T.self, from: cached.data)
-            } catch {
-                // invalid cache, call service
-                URLCache.shared.removeCachedResponse(for: urlRequest)
-            }
-        }
-        
-        do{
-            // Request
-            let data = try await session
+
+        do {
+            let response = session
                 .request(urlRequest)
                 .validate(statusCode: 200..<300)
-                .validate(contentType: ["application/json"])
+                .validate(contentType: ["application/json", "charset=utf-8"])
                 .serializingData()
-                .value
-            
-            // Save cache
-            if cachePolicy == .useCache,
-               method == .get,
-               let _ = session.session.configuration.urlCache,
-               let httpResponse = HTTPURLResponse(url: url,
-                                                  statusCode: 200,
-                                                  httpVersion: nil,
-                                                  headerFields: nil) {
-                
-                let cachedResponse = CachedURLResponse(
-                    response: httpResponse,
-                    data: data
-                )
-                URLCache.shared.storeCachedResponse(cachedResponse, for: urlRequest)
-            }
-            
+
+            let data = try await response.value
+
             do {
                 return try decoder.decode(T.self, from: data)
             } catch {
                 throw NetworkError.decoding
             }
+
         } catch {
             throw mapError(error)
         }
@@ -177,27 +159,6 @@ final class APIClient {
         } catch {
             throw mapError(error)
         }
-    }
-    
-    //MARK: - Cache
-    
-    // clear all cache
-    func clearAllCache() {
-        URLCache.shared.removeAllCachedResponses()
-    }
-    
-    // clear endpoint cache
-    func clearCache(for endpoint: String, method: HTTPMethod = .get) {
-        let urlRequestString = APIEndpoint.baseURL + endpoint
-        
-        guard let url = URL(string: urlRequestString) else {
-            return
-        }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = method.rawValue
-        
-        URLCache.shared.removeCachedResponse(for: request)
     }
     
     // MARK: - Map Error
