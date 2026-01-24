@@ -87,6 +87,7 @@ class ArtDetilsViewController: GenericViewController<ArtDetilsViewModel> {
     }
 
     @IBAction func favoriteButtonAction(_ sender: UIButton) {
+        viewModel.saveArtToFavorites()
     }
     
     private func appendValueForLabel(title: String, data: String) -> String{
