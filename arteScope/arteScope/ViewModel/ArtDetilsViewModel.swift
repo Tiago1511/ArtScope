@@ -34,6 +34,9 @@ class ArtDetilsViewModel: GenericViewModel, ViewModelFactory {
         newArt.artDimensions = art.dimensions
         newArt.artImage = art.imageURL
         
+        newArt.artist = newArtist
+        newArtist.art?.adding(newArtist)
+        
         //save
         do {
             try context.save()

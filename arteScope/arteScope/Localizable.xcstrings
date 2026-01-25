@@ -18,6 +18,23 @@
         }
       }
     },
+    "artDetails" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Art Details"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Detalhes da Arte"
+          }
+        }
+      }
+    },
     "artDimensions" : {
       "extractionState" : "manual",
       "localizations" : {

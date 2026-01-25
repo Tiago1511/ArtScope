@@ -76,6 +76,17 @@ extension FavoriteViewController: UICollectionViewDelegate, UICollectionViewData
         return CGSize(width: collectionView.frame.width / 2.5, height: collectionView.frame.width / 2.5)
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let favorite = self.viewModel.favorites[indexPath.row]
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewController: FavoriteDetailsViewController = storyboard.instantiateViewController(withIdentifier: FavoriteDetailsViewController.storyboardID) as! FavoriteDetailsViewController
+        viewController.viewModel.art = favorite
+        
+        self.navigationController?.pushViewController(viewController, animated: true)
+    }
+    
     //spleat
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
