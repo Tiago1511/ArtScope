@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import CoreData
+internal import CoreData
 
 class ArtDetilsViewModel: GenericViewModel, ViewModelFactory {
 
@@ -15,7 +15,7 @@ class ArtDetilsViewModel: GenericViewModel, ViewModelFactory {
     }
     
     var art: Object?
-    let context: NSManagedObjectContext = AppDelegate().persistentContainer.viewContext
+    let context: NSManagedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     
     func saveArtToFavorites() {
@@ -34,11 +34,12 @@ class ArtDetilsViewModel: GenericViewModel, ViewModelFactory {
         newArt.artDimensions = art.dimensions
         newArt.artImage = art.imageURL
         
-        
-        
         //save
-        AppDelegate().saveContext()
-        
+        do {
+            try context.save()
+        }  catch {
+            print("Error saving: \(error)")
+        }
         
     }
     

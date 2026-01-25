@@ -159,17 +159,17 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="pKC-1u-Cke" kind="relationship" relationship="rootViewController" id="cE5-HX-eaa"/>
+                        <segue destination="pKC-1u-Cke" kind="relationship" relationship="rootViewController" id="44Z-Qq-pcr"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qC3-yL-Iid" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="256" y="211"/>
+            <point key="canvasLocation" x="256" y="220"/>
         </scene>
-        <!--View Controller-->
+        <!--Favorite View Controller-->
         <scene sceneID="cIX-oP-HHc">
             <objects>
-                <viewController id="pKC-1u-Cke" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FavoriteViewController" id="pKC-1u-Cke" customClass="FavoriteViewController" customModule="arteScope" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="28v-cx-p4W">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -196,6 +196,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="7nD-Zq-K1F"/>
+                    <connections>
+                        <outlet property="favoriteCollectionView" destination="ctO-Sv-gqR" id="ZDE-3O-Ey7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mBk-5L-u6b" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
