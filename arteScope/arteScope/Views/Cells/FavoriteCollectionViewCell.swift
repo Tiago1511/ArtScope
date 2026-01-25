@@ -23,12 +23,12 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        setUp()
     }
 
     //MARK: - SetUp
     func setUp() {
-        self.backgroundColor = .secoundBackground
+        self.backgroundColor = .background
         imgView.layer.cornerRadius = 10
         titleLabel.setTheme(titleLabelStyle)
         departmentLabel.setTheme(descriptionLabelStyle)

@@ -175,9 +175,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ctO-Sv-gqR">
-                                <rect key="frame" x="10" y="182" width="373" height="543"/>
+                                <rect key="frame" x="0.0" y="172" width="393" height="563"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="XJx-DU-XiZ">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="VRb-fq-BZb">
                                     <size key="itemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -189,10 +189,10 @@
                         <viewLayoutGuide key="safeArea" id="BVK-TJ-BL4"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="ctO-Sv-gqR" firstAttribute="top" secondItem="BVK-TJ-BL4" secondAttribute="top" constant="10" id="APJ-bM-Ylr"/>
-                            <constraint firstItem="BVK-TJ-BL4" firstAttribute="trailing" secondItem="ctO-Sv-gqR" secondAttribute="trailing" constant="10" id="ZCG-bR-nn9"/>
-                            <constraint firstItem="BVK-TJ-BL4" firstAttribute="bottom" secondItem="ctO-Sv-gqR" secondAttribute="bottom" constant="10" id="kl3-8d-M7e"/>
-                            <constraint firstItem="ctO-Sv-gqR" firstAttribute="leading" secondItem="BVK-TJ-BL4" secondAttribute="leading" constant="10" id="v3f-da-rCC"/>
+                            <constraint firstItem="ctO-Sv-gqR" firstAttribute="top" secondItem="BVK-TJ-BL4" secondAttribute="top" id="APJ-bM-Ylr"/>
+                            <constraint firstItem="BVK-TJ-BL4" firstAttribute="trailing" secondItem="ctO-Sv-gqR" secondAttribute="trailing" id="ZCG-bR-nn9"/>
+                            <constraint firstItem="BVK-TJ-BL4" firstAttribute="bottom" secondItem="ctO-Sv-gqR" secondAttribute="bottom" id="kl3-8d-M7e"/>
+                            <constraint firstItem="ctO-Sv-gqR" firstAttribute="leading" secondItem="BVK-TJ-BL4" secondAttribute="leading" id="v3f-da-rCC"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="7nD-Zq-K1F"/>

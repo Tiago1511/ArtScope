@@ -9,11 +9,12 @@ import UIKit
 
 class FavoriteViewController: GenericViewController<FavoritesViewModel> {
     
-    
     @IBOutlet weak var favoriteCollectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        showsNavigationBar = true
+        navBarTitle = NSLocalizedString("favorites", comment:"")
         setupCollectionView()
     }
     
@@ -27,6 +28,7 @@ class FavoriteViewController: GenericViewController<FavoritesViewModel> {
         favoriteCollectionView.delegate = self
         favoriteCollectionView.dataSource = self
         favoriteCollectionView.register(FavoriteCollectionViewCell.nib, forCellWithReuseIdentifier: FavoriteCollectionViewCell.identifier)
+        favoriteCollectionView.register(FavoriteHeaderView.nib(), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: FavoriteHeaderView.reuseIdentifier)
         favoriteCollectionView.backgroundColor = .background
     }
     
@@ -44,23 +46,10 @@ class FavoriteViewController: GenericViewController<FavoritesViewModel> {
 }
 
 
-extension FavoriteViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        1
-    }
+extension FavoriteViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         viewModel.favorites.count
-    }
-    
-    //header
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FavoriteHeaderView.reuseIdentifier, for: indexPath) as! FavoriteHeaderView
-        
-        headerView.titleLabel.text = NSLocalizedString("favorites", comment: "")
-        
-        return headerView
     }
     
     // cell
@@ -76,4 +65,36 @@ extension FavoriteViewController: UICollectionViewDelegate, UICollectionViewData
         return cell
     }
     
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize{
+        if(UIDevice.current.userInterfaceIdiom == .pad){
+            return CGSize(width: collectionView.frame.width / 4.5, height: collectionView.frame.width / 4.5)
+        }
+        return CGSize(width: collectionView.frame.width / 2.5, height: collectionView.frame.width / 2.5)
+    }
+    
+    //spleat
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+
+        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
+    }
+
+
 }

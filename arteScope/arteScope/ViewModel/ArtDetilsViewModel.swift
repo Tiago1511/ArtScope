@@ -29,7 +29,7 @@ class ArtDetilsViewModel: GenericViewModel, ViewModelFactory {
         newArtist.dateDeath = art.artistEndYear
         
         let newArt = Art(context: context)
-        newArt.artTitle = art.artistName
+        newArt.artTitle = art.title
         newArt.artDepartment = art.department
         newArt.artDimensions = art.dimensions
         newArt.artImage = art.imageURL
