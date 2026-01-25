@@ -1,6 +1,40 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "addedSuccessfully" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Added Successfully"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicionado com Sucesso"
+          }
+        }
+      }
+    },
+    "addFavorite" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add to Favorites"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicionar aos Favoritos"
+          }
+        }
+      }
+    },
     "animals" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -206,6 +240,23 @@
         }
       }
     },
+    "errorFavoriteAdding" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error Favorite Adding"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erro ao Adicionar o Favorito"
+          }
+        }
+      }
+    },
     "errorGetImage" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -236,6 +287,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Erro ao processar os dados"
+          }
+        }
+      }
+    },
+    "errorRemovingFavorites" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error Removing from Favorites"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erro ao Remover dos Favoritos"
           }
         }
       }
@@ -428,6 +496,23 @@
         }
       }
     },
+    "removeFavorite" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove Favorite"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remover Favorito"
+          }
+        }
+      }
+    },
     "sea" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -458,6 +543,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Erro de serviço"
+          }
+        }
+      }
+    },
+    "success" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Success"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sucesso"
+          }
+        }
+      }
+    },
+    "successRemovingFavorite" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Success Removing Favorite"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sucesso ao Remover o Favorito"
           }
         }
       }

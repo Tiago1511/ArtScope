@@ -17,7 +17,10 @@ class FavoriteDetailsViewModel: GenericViewModel, ViewModelFactory {
     var art: Art?
     let context: NSManagedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
+    //MARK: - Clousers
+    var showSuccessAlert: ((_ title: String, _ message: String) -> Void)?
     
+    //MARK: - Favorite
     func removeArtToFavorites() {
         
         guard let art = self.art else { return }
@@ -37,8 +40,10 @@ class FavoriteDetailsViewModel: GenericViewModel, ViewModelFactory {
         
         do {
             try context.save()
+            showSuccessAlert?(NSLocalizedString("success", comment: ""), NSLocalizedString("successRemovingFavorite", comment: ""))
         } catch {
             print("Failed to remove from favorites: \(error)")
+            showAlert?(NSLocalizedString("errorRemovingFavorites", comment: ""))
         }
         
     }

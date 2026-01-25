@@ -17,7 +17,10 @@ class ArtDetilsViewModel: GenericViewModel, ViewModelFactory {
     var art: Object?
     let context: NSManagedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
+    //MARK: - Clousers
+    var showSuccessAlert: ((_ title: String, _ message : String) -> Void)?
     
+    //MARK: - Favorite
     func saveArtToFavorites() {
         
         guard let art = self.art else { return }
@@ -40,8 +43,10 @@ class ArtDetilsViewModel: GenericViewModel, ViewModelFactory {
         //save
         do {
             try context.save()
+            showSuccessAlert?(NSLocalizedString("success", comment: ""), NSLocalizedString("addedSuccessfully", comment: ""))
         }  catch {
-            print("Error saving: \(error)")
+            print("error \(error)")
+            showAlert?(NSLocalizedString("errorFavoriteAdding", comment: ""))
         }
         
     }

@@ -21,6 +21,8 @@ class FavoriteDetailsViewController: GenericViewController<FavoriteDetailsViewMo
     @IBOutlet weak var startDateLabel: UILabel!
     @IBOutlet weak var endDateLabel: UILabel!
     
+    @IBOutlet weak var removeFavoriteButton: UIButton!
+    
     static var storyboardID: String = "FavoriteDetailsViewController"
 
     override func viewDidLoad() {
@@ -39,7 +41,26 @@ class FavoriteDetailsViewController: GenericViewController<FavoriteDetailsViewMo
         
     }
     
+    //MARK: - Binding
+    override func setupBind() {
+        super.setupBind()
+        
+        viewModel.showSuccessAlert = { [weak self] (title: String, message: String) in
+            DispatchQueue.main.async {
+                self?.showGenericAlert(
+                    title: title,
+                    message: message,
+                    onOk: { [weak self] in
+                        self?.navigationController?.popViewController(animated: true)
+                    }
+                )
+            }
+        }
+    }
+    
+    //MARK: - Setup
     func setup() {
+        removeFavoriteButton.setTitle(NSLocalizedString("removeFavorite", comment: ""), for: .normal)
         setupArtDetails()
         setupArtistDetails()
     }

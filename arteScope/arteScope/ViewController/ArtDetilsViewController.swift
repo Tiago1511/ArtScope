@@ -21,6 +21,8 @@ class ArtDetilsViewController: GenericViewController<ArtDetilsViewModel> {
     @IBOutlet weak var startDateLabel: UILabel!
     @IBOutlet weak var endDateLabel: UILabel!
     
+    @IBOutlet weak var saveFavoriteButton: UIButton!
+    
     static var storyboardID: String = "ArtDetilsViewController"
     
     
@@ -40,7 +42,26 @@ class ArtDetilsViewController: GenericViewController<ArtDetilsViewModel> {
         
     }
     
+    //MARK: - Binding
+    override func setupBind() {
+        super.setupBind()
+        
+        viewModel.showSuccessAlert = { [weak self] (title: String, message: String) in
+            DispatchQueue.main.async {
+                self?.showGenericAlert(
+                    title: title,
+                    message: message,
+                    onOk: {
+                        return
+                    }
+                )
+            }
+        }
+    }
+    
+    //MARK: - Setup
     func setup() {
+        saveFavoriteButton.setTitle(NSLocalizedString("addFavorite", comment: ""), for: .normal)
         setupArtDetails()
         setupArtistDetails()
     }
