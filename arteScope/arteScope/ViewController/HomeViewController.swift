@@ -18,10 +18,10 @@ class HomeViewController: GenericViewController<HomeViewModel> {
         super.viewDidLoad()
         showsNavigationBar = true
         navBarTitle = NSLocalizedString("arteScope", comment:"")
-        setupCollectionView()
+        setupTableView()
     }
     
-    private func setupCollectionView(){
+    private func setupTableView(){
         highlightTableView.delegate = self
         highlightTableView.dataSource = self
         

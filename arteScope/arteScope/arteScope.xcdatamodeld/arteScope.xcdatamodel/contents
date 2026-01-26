@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="false" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="24512" systemVersion="25C56" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="Art" representedClassName="Art" syncable="YES" codeGenerationType="class">
+        <attribute name="artDepartment" optional="YES" attributeType="String"/>
+        <attribute name="artDimensions" optional="YES" attributeType="String"/>
+        <attribute name="artImage" optional="YES" attributeType="String"/>
+        <attribute name="artTitle" optional="YES" attributeType="String"/>
+        <relationship name="artist" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Artist" inverseName="art" inverseEntity="Artist"/>
+    </entity>
+    <entity name="Artist" representedClassName="Artist" syncable="YES" codeGenerationType="class">
+        <attribute name="artistName" optional="YES" attributeType="String"/>
+        <attribute name="bibliography" optional="YES" attributeType="String"/>
+        <attribute name="dateBirth" optional="YES" attributeType="String"/>
+        <attribute name="dateDeath" optional="YES" attributeType="String"/>
+        <relationship name="art" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Art" inverseName="artist" inverseEntity="Art"/>
+    </entity>
 </model>
