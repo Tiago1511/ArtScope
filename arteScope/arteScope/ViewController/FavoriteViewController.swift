@@ -30,7 +30,6 @@ class FavoriteViewController: GenericViewController<FavoritesViewModel> {
         favoriteCollectionView.delegate = self
         favoriteCollectionView.dataSource = self
         favoriteCollectionView.register(FavoriteCollectionViewCell.nib, forCellWithReuseIdentifier: FavoriteCollectionViewCell.identifier)
-        favoriteCollectionView.register(FavoriteHeaderView.nib(), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: FavoriteHeaderView.reuseIdentifier)
         favoriteCollectionView.backgroundColor = .background
     }
     

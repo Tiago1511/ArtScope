@@ -553,6 +553,43 @@
             </objects>
             <point key="canvasLocation" x="255.72519083969465" y="1629.5774647887324"/>
         </scene>
+        <!--Themes View Controller-->
+        <scene sceneID="cLF-vH-7om">
+            <objects>
+                <viewController storyboardIdentifier="ThemesViewController" id="OCS-md-zQr" customClass="ThemesViewController" customModule="arteScope" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="pie-EI-iwy">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="R19-mc-MsJ">
+                                <rect key="frame" x="0.0" y="118" width="393" height="666"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="xV3-RQ-uXX">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="euY-YZ-b0n"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="euY-YZ-b0n" firstAttribute="trailing" secondItem="R19-mc-MsJ" secondAttribute="trailing" id="BHF-3l-tcN"/>
+                            <constraint firstItem="R19-mc-MsJ" firstAttribute="leading" secondItem="euY-YZ-b0n" secondAttribute="leading" id="c1e-Nr-7KE"/>
+                            <constraint firstItem="euY-YZ-b0n" firstAttribute="bottom" secondItem="R19-mc-MsJ" secondAttribute="bottom" id="f5n-NY-hbt"/>
+                            <constraint firstItem="R19-mc-MsJ" firstAttribute="top" secondItem="euY-YZ-b0n" secondAttribute="top" id="rQ7-7s-AI4"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="themeCollectionView" destination="R19-mc-MsJ" id="eia-kf-BbR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yHo-29-2cw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1260" y="1630"/>
+        </scene>
     </scenes>
     <resources>
         <image name="artFrame" width="20.283199310302734" height="19.931600570678711"/>
