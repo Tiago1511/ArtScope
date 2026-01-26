@@ -11,6 +11,8 @@ class FavoriteViewController: GenericViewController<FavoritesViewModel> {
     
     @IBOutlet weak var favoriteCollectionView: UICollectionView!
     
+    var emptyView: EmptyFavoriteView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         showsNavigationBar = true
@@ -32,12 +34,34 @@ class FavoriteViewController: GenericViewController<FavoritesViewModel> {
         favoriteCollectionView.backgroundColor = .background
     }
     
+    private func setupEmptyView() {
+        guard emptyView == nil else { return }
+        let empty = EmptyFavoriteView()
+        empty.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(empty)
+        
+        NSLayoutConstraint.activate([
+            empty.topAnchor.constraint(equalTo: view.topAnchor),
+            empty.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            empty.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            empty.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
+        emptyView = empty
+        
+    }
+    
     //MARK: - SetUp Bind
     override func setupBind() {
         super.setupBind()
         viewModel.reloadCollection = { [weak self] () in
             DispatchQueue.main.async{
-                self?.favoriteCollectionView.reloadData()
+                guard let self = self else { return }
+                
+                self.setupEmptyView()
+                self.emptyView?.isHidden = !self.viewModel.favorites.isEmpty
+                self.favoriteCollectionView.reloadData()
             }
         }
     }

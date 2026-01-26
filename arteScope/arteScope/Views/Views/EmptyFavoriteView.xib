@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EmptyFavoriteView" customModule="arteScope" customModuleProvider="target">
+            <connections>
+                <outlet property="emptyLabel" destination="igA-sb-FIB" id="TIM-id-aDC"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="document.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Kvo-sE-Fw9">
+                    <rect key="frame" x="146.66666666666666" y="376.66666666666669" width="100" height="98.666666666666686"/>
+                    <color key="tintColor" name="title"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="Bgm-ll-FVo"/>
+                        <constraint firstAttribute="height" constant="100" id="VfR-EG-5jk"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="igA-sb-FIB">
+                    <rect key="frame" x="10" y="486" width="373" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" name="title"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <constraints>
+                <constraint firstItem="Kvo-sE-Fw9" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="1VU-cj-gxE"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="igA-sb-FIB" secondAttribute="trailing" constant="10" id="4mH-WF-UYJ"/>
+                <constraint firstItem="igA-sb-FIB" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="9kq-iw-Hjq"/>
+                <constraint firstItem="Kvo-sE-Fw9" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="dIN-cL-hq5"/>
+                <constraint firstItem="igA-sb-FIB" firstAttribute="top" secondItem="Kvo-sE-Fw9" secondAttribute="bottom" constant="10" id="hEb-ri-A3E"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-334" y="154"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="document.circle" catalog="system" width="128" height="123"/>
+        <namedColor name="title">
+            <color red="0.46274509803921571" green="0.39215686274509803" blue="0.53725490196078429" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+    </resources>
+</document>
