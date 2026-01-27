@@ -23,7 +23,7 @@ class ThemesCollectionViewCell: UICollectionViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        setUp()
     }
     
     //MARK: - SetUp

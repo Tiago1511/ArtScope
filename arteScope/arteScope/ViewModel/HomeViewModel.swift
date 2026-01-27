@@ -71,8 +71,7 @@ class HomeViewModel: GenericViewModel, ViewModelFactory {
     
     private func getHighlights() async throws {
         
-        let ojects = try await service.getHighlights()
-        highlights = ojects
+        highlights = try await service.getHighlights()
         
         guard let highlight = highlights?.objectsIds else { return }
         
