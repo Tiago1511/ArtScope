@@ -142,6 +142,9 @@ extension HomeViewController:UITableViewDelegate, UITableViewDataSource{
             navigationController?.pushViewController(viewController, animated: true)
             break
         case .themes(let theme):
+            let viewController: ThemesViewController = storyboard.instantiateViewController(withIdentifier: ThemesViewController.storyboardID) as! ThemesViewController
+            viewController.viewModel.themeSelected = theme
+            navigationController?.pushViewController(viewController, animated: true)
             break
         }
         

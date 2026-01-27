@@ -71,6 +71,21 @@ final class ServiceRequest {
             cachePolicy: CachePolicy.ignoreCache
             )
     }
+    
+    /// Theme
+    func getTheme(theme: String) async throws -> Objects {
+        try await apiClient.request(
+            endpoint: APIEndpoint.search,
+            method: .get,
+            parameters: [
+                "hasImages" : true,
+                "q" : "\(theme)"
+            ],
+            headers: header,
+            cachePolicy: CachePolicy.ignoreCache
+        )
+        
+    }
         
 }
 

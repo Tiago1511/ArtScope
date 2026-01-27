@@ -30,7 +30,6 @@ class FavoriteViewController: GenericViewController<FavoritesViewModel> {
         favoriteCollectionView.delegate = self
         favoriteCollectionView.dataSource = self
         favoriteCollectionView.register(FavoriteCollectionViewCell.nib, forCellWithReuseIdentifier: FavoriteCollectionViewCell.identifier)
-        favoriteCollectionView.register(FavoriteHeaderView.nib(), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: FavoriteHeaderView.reuseIdentifier)
         favoriteCollectionView.backgroundColor = .background
     }
     
@@ -116,19 +115,19 @@ extension FavoriteViewController: UICollectionViewDelegate, UICollectionViewData
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
 
-        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
 
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 10
+        10
     }
 
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 10
+        10
     }
 
 
