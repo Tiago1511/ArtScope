@@ -4,8 +4,13 @@
         <attribute name="artDepartment" optional="YES" attributeType="String"/>
         <attribute name="artDimensions" optional="YES" attributeType="String"/>
         <attribute name="artImage" optional="YES" attributeType="String"/>
-        <attribute name="artTitle" optional="YES" attributeType="String"/>
+        <attribute name="artTitle" attributeType="String"/>
         <relationship name="artist" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Artist" inverseName="art" inverseEntity="Artist"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="artTitle"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <entity name="Artist" representedClassName="Artist" syncable="YES" codeGenerationType="class">
         <attribute name="artistName" optional="YES" attributeType="String"/>
