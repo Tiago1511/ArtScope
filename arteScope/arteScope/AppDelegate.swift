@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import CoreData
+internal import CoreData
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -58,6 +58,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
+        container.viewContext.mergePolicy =
+                NSMergeByPropertyObjectTrumpMergePolicy
         return container
     }()
 

@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let rootVC = storyboard.instantiateViewController(withIdentifier: "ViewController") //First viewController
+        let rootVC = storyboard.instantiateViewController(withIdentifier: "SplashScreenViewController") //First viewController
         let nav = UINavigationController(rootViewController: rootVC)
         window.rootViewController = nav
         window.makeKeyAndVisible()
@@ -57,6 +57,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Save changes in the application's managed object context when the application transitions to the background.
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+        UserDefaults.standard.set(true, forKey: "shouldClearNetworkCache")
     }
 
 
