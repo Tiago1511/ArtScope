@@ -51,4 +51,17 @@ class ArtDetilsViewModel: GenericViewModel, ViewModelFactory {
         
     }
     
+    private func hasArtInDatabase(title: String) -> Art? {
+        let request : NSFetchRequest<Art> = Art.fetchRequest()
+        request.predicate = NSPredicate(format: "artTitle == %@", title)
+        request.fetchLimit = 1
+        do {
+            let result = try context.fetch(request)
+            return result.first
+        } catch {
+            print("error \(error)")
+            return nil
+        }
+    }
+    
 }
