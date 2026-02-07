@@ -5,11 +5,12 @@ on:
     branches:
       - main
       - Develop/*
+      - Sprint3/*
   pull_request:
     branches: 
       - main
       - Develop/*
-
+      - Sprint3/*
 jobs:
   build:
     name: Build and Test default scheme using any available iPhone simulator
