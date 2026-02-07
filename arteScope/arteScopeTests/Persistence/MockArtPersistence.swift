@@ -14,6 +14,7 @@ class MockArtPersistence: ArtPersistenceProtocol {
     
     var shouldFail = false
     var savedArt: Object?
+    var removedArt: Art?
     
     func saveArt(_ art: Object, completion: @escaping (Result<Void, Error>) -> Void) {
         if shouldFail {
@@ -23,5 +24,15 @@ class MockArtPersistence: ArtPersistenceProtocol {
             completion(.success(()))
         }
     }
+    
+    func removeArt(_ art: Art, completion: @escaping (Result<Void, Error>) -> Void) {
+        if shouldFail {
+            completion(.failure(NSError(domain: "TestError", code: 1, userInfo: nil)))
+        } else {
+            removedArt = art
+            completion(.success(()))
+        }
+    }
+    
 }
 

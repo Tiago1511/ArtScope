@@ -10,12 +10,21 @@ import CoreData
 
 class FavoriteDetailsViewModel: GenericViewModel, ViewModelFactory {
     
+    // Init exige injeção
+    init(persistence: ArtPersistenceProtocol) {
+        self.persistence = persistence
+    }
+       
+    // Factory to prod (real Core Data)
     static func make() -> FavoriteDetailsViewModel {
-        FavoriteDetailsViewModel()
+        let persistence = ArtCoreDataManager(
+            context: (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        )
+        return FavoriteDetailsViewModel(persistence: persistence)
     }
     
     var art: Art?
-    let context: NSManagedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    private let persistence: ArtPersistenceProtocol
     
     //MARK: - Clousers
     var showSuccessAlert: ((_ title: String, _ message: String) -> Void)?
@@ -23,27 +32,22 @@ class FavoriteDetailsViewModel: GenericViewModel, ViewModelFactory {
     //MARK: - Favorite
     func removeArtToFavorites() {
         
-        guard let art = self.art else { return }
-        
-        guard let artist = art.artist else { // if don't have artist remove art
-            context.delete(art)
+        guard let art else {
+            showAlert?(NSLocalizedString("errorRemovingFavorites", comment: ""))
             return
         }
         
-        context.delete(art)
-        
-        let arts = artist.art?.count ?? 0
-        
-        if arts <= 1 { // check artis have more arts
-            context.delete(artist)
-        }
-        
-        do {
-            try context.save()
-            showSuccessAlert?(NSLocalizedString("success", comment: ""), NSLocalizedString("successRemovingFavorite", comment: ""))
-        } catch {
-            print("Failed to remove from favorites: \(error)")
-            showAlert?(NSLocalizedString("errorRemovingFavorites", comment: ""))
+        persistence.removeArt(art) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success():
+                    self?.showSuccessAlert?(NSLocalizedString("success", comment: ""), NSLocalizedString("successRemovingFavorite", comment: ""))
+                case .failure(let error):
+                    print("Failed to remove from favorites: \(error)")
+                    self?.showAlert?(NSLocalizedString("errorRemovingFavorites", comment: ""))
+                }
+                
+            }
         }
         
     }

@@ -15,7 +15,7 @@ class ArtDetilsViewModel: GenericViewModel, ViewModelFactory {
         self.persistence = persistence
     }
        
-    // Factory para produção (Core Data real)
+    // Factory to prod (real Core Data)
     static func make() -> ArtDetilsViewModel {
         let persistence = ArtCoreDataManager(
             context: (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext

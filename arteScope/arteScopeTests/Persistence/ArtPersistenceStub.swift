@@ -13,4 +13,8 @@ class ArtPersistenceStub: ArtPersistenceProtocol {
     func saveArt(_ art: Object, completion: @escaping (Result<Void, Error>) -> Void) {
         completion(result)
     }
+    
+    func removeArt(_ art: Art, completion: @escaping (Result<Void, Error>) -> Void) {
+        completion(result)
+    }
 }

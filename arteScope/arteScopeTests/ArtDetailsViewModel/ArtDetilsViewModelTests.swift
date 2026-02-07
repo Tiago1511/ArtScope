@@ -12,11 +12,9 @@ import XCTest
 
 class ArtDetailsViewModelTests: XCTestCase {
     
-    var sut: ArtDetilsViewModel!
-    
     func testSaveArtWithNilArt_UsingDummy_ShowsError() {
         let dummy = ArtPersistenceDummy()
-        sut = ArtDetilsViewModel(persistence: dummy)
+        let sut = ArtDetilsViewModel(persistence: dummy)
 
         sut.art = nil
 
@@ -34,7 +32,7 @@ class ArtDetailsViewModelTests: XCTestCase {
     
     func testSaveArt_UsingFake_StoresArtInMemory() {
         let fake = ArtPersistenceFake()
-        sut = ArtDetilsViewModel(persistence: fake)
+        let sut = ArtDetilsViewModel(persistence: fake)
 
         let art = ArtTestData.sampleArt()
         sut.art = art
@@ -56,7 +54,7 @@ class ArtDetailsViewModelTests: XCTestCase {
         let stub = ArtPersistenceStub()
         stub.result = .success(())
 
-        sut = ArtDetilsViewModel(persistence: stub)
+        let sut = ArtDetilsViewModel(persistence: stub)
 
         sut.art = ArtTestData.sampleArt()
 
@@ -76,7 +74,7 @@ class ArtDetailsViewModelTests: XCTestCase {
         let stub = ArtPersistenceStub()
         stub.result = .failure(NSError(domain: "", code: -1))
 
-        sut = ArtDetilsViewModel(persistence: stub)
+        let sut = ArtDetilsViewModel(persistence: stub)
         sut.art = ArtTestData.sampleArt()
 
         let expectation = expectation(description: "Error alert")

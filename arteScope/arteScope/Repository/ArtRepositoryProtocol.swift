@@ -10,5 +10,5 @@ import CoreData
 
 protocol ArtPersistenceProtocol {
     func saveArt(_ art: Object, completion: @escaping (Result<Void, Error>) -> Void)
-    
+    func removeArt(_ art: Art, completion: @escaping (Result<Void, Error>) -> Void)
 }

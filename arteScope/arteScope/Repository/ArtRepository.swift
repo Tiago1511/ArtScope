@@ -42,4 +42,23 @@ class ArtCoreDataManager: ArtPersistenceProtocol {
         
     }
     
+    func removeArt(_ art: Art, completion: @escaping (Result<Void, any Error>) -> Void) {
+        do {
+            
+            context.delete(art)
+            
+            if let artist = art.artist {
+                let arts = artist.art?.count ?? 0
+                if arts <= 1 { // check artis have more arts
+                    context.delete(artist)
+                }
+            }
+            
+            try context.save()
+            completion(.success(()))
+        }catch {
+            completion(.failure(error))
+        }
+    }
+    
 }
