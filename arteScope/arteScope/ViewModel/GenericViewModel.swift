@@ -21,6 +21,7 @@ class GenericViewModel {
     var showAlert: ((String) -> Void)?
     
     // MARK: - Service Requests
+    @MainActor
     let service : ServiceRequest = ServiceRequest.shared
     
     func getImage(from url: String) async throws -> UIImage {

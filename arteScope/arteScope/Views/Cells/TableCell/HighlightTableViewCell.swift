@@ -46,6 +46,7 @@ class HighlightTableViewCell: UITableViewCell {
         Task{
             do {
                 let image = try await viewModel.getImage(from: viewModel.highlight?.imageURL ?? "")
+                imageMainView.isHidden = false
                 imgView.image = image
             } catch {
                 imageMainView.isHidden = true

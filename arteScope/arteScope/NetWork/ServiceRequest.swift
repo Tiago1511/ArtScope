@@ -9,6 +9,7 @@ import Foundation
 import Alamofire
 import UIKit
 
+@MainActor
 final class ServiceRequest {
     
     // MARK: - Singleton

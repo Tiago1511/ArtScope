@@ -10,8 +10,19 @@
 		F191D3552F0709F2005AFE32 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F191D3542F0709F2005AFE32 /* Alamofire */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		F1D2B6452F37589800835419 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F191D2C42F06CC50005AFE32 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F191D2CB2F06CC50005AFE32;
+			remoteInfo = arteScope;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		F191D2CC2F06CC50005AFE32 /* arteScope.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = arteScope.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1D2B6412F37589800835419 /* arteScopeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = arteScopeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -22,6 +33,64 @@
 			);
 			target = F191D2CB2F06CC50005AFE32 /* arteScope */;
 		};
+		F1D2B64B2F3758AA00835419 /* Exceptions for "arteScope" folder in "arteScopeTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"/Localized: Views/LaunchScreen.storyboard",
+				"/Localized: Views/Main.storyboard",
+				AppDelegate.swift,
+				arteScope.xcdatamodeld,
+				Assets.xcassets,
+				Extension/UILabel.swift,
+				Localizable.xcstrings,
+				Model/Department.swift,
+				Model/HomeSection.swift,
+				Model/Objects.swift,
+				Model/Theme.swift,
+				NetWork/Core/APIClient.swift,
+				NetWork/Core/APIEndpoint.swift,
+				NetWork/NetworkManager.swift,
+				NetWork/ServiceRequest.swift,
+				Repository/ArtRepository.swift,
+				Repository/ArtRepositoryProtocol.swift,
+				Resources/LabelStyle.swift,
+				SceneDelegate.swift,
+				ViewController/ArtDetilsViewController.swift,
+				ViewController/FavoriteDetailsViewController.swift,
+				ViewController/FavoriteViewController.swift,
+				ViewController/GenericViewController.swift,
+				ViewController/HomeViewController.swift,
+				ViewController/MenuViewController.swift,
+				ViewController/SplashScreenViewController.swift,
+				ViewController/ThemesViewController.swift,
+				ViewModel/ArtDetilsViewModel.swift,
+				ViewModel/FavoriteDetailsViewModel.swift,
+				ViewModel/FavoritesViewModel.swift,
+				ViewModel/FavoriteViewModel.swift,
+				ViewModel/GenericViewModel.swift,
+				ViewModel/HighlightViewModel.swift,
+				ViewModel/HomeViewModel.swift,
+				ViewModel/SplashScreenViewModel.swift,
+				ViewModel/ThemeCollectionViewModel.swift,
+				ViewModel/ThemesViewModel.swift,
+				ViewModel/ThemeViewModel.swift,
+				Views/Cells/CollectionCell/FavoriteCollectionViewCell.swift,
+				Views/Cells/CollectionCell/FavoriteCollectionViewCell.xib,
+				Views/Cells/CollectionCell/ThemesCollectionViewCell.swift,
+				Views/Cells/CollectionCell/ThemesCollectionViewCell.xib,
+				Views/Cells/Headers/HomeHeaderView.swift,
+				Views/Cells/Headers/HomeHeaderView.xib,
+				Views/Cells/TableCell/HighlightTableViewCell.swift,
+				Views/Cells/TableCell/HighlightTableViewCell.xib,
+				Views/Cells/TableCell/ThemeTableViewCell.swift,
+				Views/Cells/TableCell/ThemeTableViewCell.xib,
+				Views/Components/AlertView.swift,
+				Views/Components/LoadingView.swift,
+				Views/Views/EmptyFavoriteView.swift,
+				Views/Views/EmptyFavoriteView.xib,
+			);
+			target = F1D2B6402F37589800835419 /* arteScopeTests */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -29,8 +98,14 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				F191D2E12F06CC51005AFE32 /* Exceptions for "arteScope" folder in "arteScope" target */,
+				F1D2B64B2F3758AA00835419 /* Exceptions for "arteScope" folder in "arteScopeTests" target */,
 			);
 			path = arteScope;
+			sourceTree = "<group>";
+		};
+		F1D2B6422F37589800835419 /* arteScopeTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = arteScopeTests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -44,6 +119,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F1D2B63E2F37589800835419 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -51,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				F191D2CE2F06CC50005AFE32 /* arteScope */,
+				F1D2B6422F37589800835419 /* arteScopeTests */,
 				F191D2CD2F06CC50005AFE32 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -59,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				F191D2CC2F06CC50005AFE32 /* arteScope.app */,
+				F1D2B6412F37589800835419 /* arteScopeTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -89,6 +173,29 @@
 			productReference = F191D2CC2F06CC50005AFE32 /* arteScope.app */;
 			productType = "com.apple.product-type.application";
 		};
+		F1D2B6402F37589800835419 /* arteScopeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F1D2B6492F37589800835419 /* Build configuration list for PBXNativeTarget "arteScopeTests" */;
+			buildPhases = (
+				F1D2B63D2F37589800835419 /* Sources */,
+				F1D2B63E2F37589800835419 /* Frameworks */,
+				F1D2B63F2F37589800835419 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F1D2B6462F37589800835419 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				F1D2B6422F37589800835419 /* arteScopeTests */,
+			);
+			name = arteScopeTests;
+			packageProductDependencies = (
+			);
+			productName = arteScopeTests;
+			productReference = F1D2B6412F37589800835419 /* arteScopeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -101,6 +208,10 @@
 				TargetAttributes = {
 					F191D2CB2F06CC50005AFE32 = {
 						CreatedOnToolsVersion = 26.2;
+					};
+					F1D2B6402F37589800835419 = {
+						CreatedOnToolsVersion = 26.2;
+						TestTargetID = F191D2CB2F06CC50005AFE32;
 					};
 				};
 			};
@@ -122,12 +233,20 @@
 			projectRoot = "";
 			targets = (
 				F191D2CB2F06CC50005AFE32 /* arteScope */,
+				F1D2B6402F37589800835419 /* arteScopeTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		F191D2CA2F06CC50005AFE32 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1D2B63F2F37589800835419 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -144,7 +263,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F1D2B63D2F37589800835419 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F1D2B6462F37589800835419 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F191D2CB2F06CC50005AFE32 /* arteScope */;
+			targetProxy = F1D2B6452F37589800835419 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		F191D2E32F06CC51005AFE32 /* Debug */ = {
@@ -332,6 +466,48 @@
 			};
 			name = Release;
 		};
+		F1D2B6472F37589800835419 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Tiago.arteScopeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/arteScope.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/arteScope";
+			};
+			name = Debug;
+		};
+		F1D2B6482F37589800835419 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Tiago.arteScopeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/arteScope.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/arteScope";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -349,6 +525,15 @@
 			buildConfigurations = (
 				F191D2E32F06CC51005AFE32 /* Debug */,
 				F191D2E42F06CC51005AFE32 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F1D2B6492F37589800835419 /* Build configuration list for PBXNativeTarget "arteScopeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1D2B6472F37589800835419 /* Debug */,
+				F1D2B6482F37589800835419 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

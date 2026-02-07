@@ -6,61 +6,50 @@
 //
 
 import UIKit
-internal import CoreData
+import CoreData
 
 class ArtDetilsViewModel: GenericViewModel, ViewModelFactory {
 
+    // Init exige injeção
+    init(persistence: ArtPersistenceProtocol) {
+        self.persistence = persistence
+    }
+       
+    // Factory para produção (Core Data real)
     static func make() -> ArtDetilsViewModel {
-        ArtDetilsViewModel()
+        let persistence = ArtCoreDataManager(
+            context: (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        )
+        return ArtDetilsViewModel(persistence: persistence)
     }
     
     var art: Object?
-    let context: NSManagedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    private let persistence: ArtPersistenceProtocol
+        
     
     //MARK: - Clousers
     var showSuccessAlert: ((_ title: String, _ message : String) -> Void)?
     
     //MARK: - Favorite
     func saveArtToFavorites() {
-        
-        guard let art = self.art else { return }
-        
-        let newArtist = Artist(context:context)
-        newArtist.artistName = art.artistName
-        newArtist.bibliography = art.artistBio
-        newArtist.dateBirth = art.artistBeginYear
-        newArtist.dateDeath = art.artistEndYear
-        
-        let newArt = Art(context: context)
-        newArt.artTitle = art.title
-        newArt.artDepartment = art.department
-        newArt.artDimensions = art.dimensions
-        newArt.artImage = art.imageURL
-        
-        newArt.artist = newArtist
-        newArtist.art?.adding(newArtist)
-        
-        //save
-        do {
-            try context.save()
-            showSuccessAlert?(NSLocalizedString("success", comment: ""), NSLocalizedString("addedSuccessfully", comment: ""))
-        }  catch {
-            print("error \(error)")
-            showAlert?(NSLocalizedString("errorFavoriteAdding", comment: ""))
+        guard let art = art else {
+            self.showAlert?(NSLocalizedString("errorFavoriteAdding", comment: ""))
+            return
         }
         
-    }
-    
-    private func hasArtInDatabase(title: String) -> Art? {
-        let request : NSFetchRequest<Art> = Art.fetchRequest()
-        request.predicate = NSPredicate(format: "artTitle == %@", title)
-        request.fetchLimit = 1
-        do {
-            let result = try context.fetch(request)
-            return result.first
-        } catch {
-            print("error \(error)")
-            return nil
+        showLoading?()
+        
+        persistence.saveArt(art) { [weak self] result in
+            DispatchQueue.main.async {
+                self?.hideLoading?()
+                switch result {
+                case .success():
+                    self?.showSuccessAlert?(NSLocalizedString("success", comment: ""),
+                                            NSLocalizedString("addedSuccessfully", comment: ""))
+                case .failure(_):
+                    self?.showAlert?(NSLocalizedString("errorFavoriteAdding", comment: ""))
+                }
+            }
         }
     }
     
